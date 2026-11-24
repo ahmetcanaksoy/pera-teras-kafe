@@ -16,8 +16,8 @@
       --gold-light: #f0cb8c;
       --text: #faf6f0;
       --muted: #a69b8d;
-      --border: rgba(212, 163, 89, 0.16);
-      --glass: rgba(22, 19, 17, 0.78);
+      --border: rgba(212, 163, 89, 0.18);
+      --glass: rgba(22, 19, 17, 0.86);
     }
 
     * {
@@ -28,6 +28,7 @@
 
     html {
       scroll-behavior: smooth;
+      background-color: #0c0a09;
     }
 
     body {
@@ -36,9 +37,10 @@
       font-family: 'Plus Jakarta Sans', sans-serif;
       overflow-x: hidden;
       line-height: 1.6;
+      min-height: 100vh;
     }
 
-    /* Açılış Animasyonu (Preloader) */
+    /* Hızlı Kapanan Açılış Ekranı */
     .loader-overlay {
       position: fixed;
       inset: 0;
@@ -48,22 +50,25 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 18px;
-      transition: opacity 0.6s ease, visibility 0.6s ease;
+      gap: 14px;
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.35s ease, visibility 0.35s ease;
     }
 
-    .loader-overlay.hidden {
+    .loader-overlay.done {
       opacity: 0;
       visibility: hidden;
+      pointer-events: none;
     }
 
     .loader-ring {
-      width: 96px;
-      height: 96px;
+      width: 82px;
+      height: 82px;
       border-radius: 50%;
-      padding: 4px;
-      background: conic-gradient(from 0deg, var(--gold), transparent 70%, var(--gold));
-      animation: spin 1.6s linear infinite;
+      padding: 3px;
+      background: conic-gradient(from 0deg, var(--gold), transparent 75%, var(--gold));
+      animation: spin 1.1s linear infinite;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -74,48 +79,19 @@
       height: 100%;
       border-radius: 50%;
       object-fit: cover;
-      animation: counterSpin 1.6s linear infinite;
       background: #14110f;
     }
 
     .loader-text {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.35rem;
+      font-size: 1.25rem;
       letter-spacing: 3px;
       color: var(--gold-light);
       text-transform: uppercase;
-      animation: pulseText 1.5s ease-in-out infinite;
     }
 
     @keyframes spin {
       to { transform: rotate(360deg); }
-    }
-    @keyframes counterSpin {
-      to { transform: rotate(-360deg); }
-    }
-    @keyframes pulseText {
-      0%, 100% { opacity: 0.45; }
-      50% { opacity: 1; }
-    }
-
-    /* Arka Plan Işık Parıltıları */
-    .ambient-glow {
-      position: fixed;
-      width: 480px;
-      height: 480px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(212, 163, 89, 0.09) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: -1;
-      animation: floatGlow 10s ease-in-out infinite alternate;
-    }
-
-    .glow-1 { top: -120px; right: -100px; }
-    .glow-2 { bottom: -140px; left: -120px; animation-delay: -5s; }
-
-    @keyframes floatGlow {
-      from { transform: translate(0, 0) scale(1); }
-      to { transform: translate(-35px, 25px) scale(1.12); }
     }
 
     .container {
@@ -125,19 +101,19 @@
       padding: 0 20px;
     }
 
-    /* Header & Logo */
+    /* Header */
     header {
       position: sticky;
       top: 0;
       z-index: 100;
       background: var(--glass);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
     }
 
     .nav {
-      height: 78px;
+      height: 76px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -147,44 +123,43 @@
     .brand {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
       text-decoration: none;
       color: var(--text);
     }
 
     .brand-logo {
-      width: 50px;
-      height: 50px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
       object-fit: cover;
       border: 2px solid var(--gold);
-      box-shadow: 0 0 20px rgba(212, 163, 89, 0.25);
-      transition: transform 0.35s ease;
+      background: #14110f;
+      transition: transform 0.3s ease;
     }
 
     .brand:hover .brand-logo {
-      transform: rotate(8deg) scale(1.06);
+      transform: scale(1.06);
     }
 
     .brand-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.4rem;
+      font-size: 1.35rem;
       font-weight: 700;
-      letter-spacing: 0.5px;
       line-height: 1.1;
       color: var(--gold-light);
     }
 
     .brand-sub {
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       color: var(--muted);
-      letter-spacing: 1.6px;
+      letter-spacing: 1.4px;
       text-transform: uppercase;
     }
 
     .nav-links {
       display: flex;
-      gap: 28px;
+      gap: 26px;
     }
 
     .nav-links a {
@@ -192,36 +167,19 @@
       text-decoration: none;
       font-size: 0.92rem;
       font-weight: 500;
-      position: relative;
       transition: color 0.25s;
     }
 
-    .nav-links a::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -6px;
-      width: 0;
-      height: 2px;
-      background: var(--gold);
-      transition: width 0.3s ease;
-    }
-
     .nav-links a:hover {
-      color: var(--text);
+      color: var(--gold-light);
     }
 
-    .nav-links a:hover::after {
-      width: 100%;
-    }
-
-    /* Butonlar */
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      padding: 11px 20px;
+      padding: 10px 18px;
       border-radius: 12px;
       font-weight: 600;
       font-size: 0.9rem;
@@ -231,19 +189,14 @@
       transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
     }
 
-    .btn:active {
-      transform: scale(0.97);
-    }
-
     .btn-gold {
       background: linear-gradient(135deg, var(--gold), #b68238);
       color: #110d0a;
-      box-shadow: 0 8px 24px rgba(212, 163, 89, 0.25);
     }
 
     .btn-gold:hover {
       transform: translateY(-2px);
-      box-shadow: 0 12px 28px rgba(212, 163, 89, 0.38);
+      box-shadow: 0 10px 24px rgba(212, 163, 89, 0.3);
     }
 
     .btn-glass {
@@ -255,20 +208,19 @@
     .btn-glass:hover {
       border-color: var(--gold);
       color: var(--gold-light);
-      transform: translateY(-2px);
     }
 
-    /* Hero Alanı */
+    /* Hero */
     .hero {
-      padding: 76px 0 64px;
-      position: relative;
+      padding: 68px 0 56px;
+      background: radial-gradient(circle at 80% 15%, rgba(212, 163, 89, 0.12), transparent 55%);
     }
 
     .hero-grid {
       display: grid;
       grid-template-columns: 1.15fr 0.85fr;
       align-items: center;
-      gap: 40px;
+      gap: 36px;
     }
 
     .pill {
@@ -280,17 +232,17 @@
       background: rgba(212, 163, 89, 0.12);
       border: 1px solid var(--border);
       color: var(--gold-light);
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 600;
       letter-spacing: 1px;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
     }
 
     .hero h1 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2.4rem, 5vw, 3.9rem);
-      line-height: 1.08;
-      margin-bottom: 18px;
+      font-size: clamp(2.3rem, 5vw, 3.7rem);
+      line-height: 1.1;
+      margin-bottom: 16px;
     }
 
     .hero h1 span {
@@ -299,16 +251,16 @@
 
     .hero p {
       color: var(--muted);
-      font-size: 1.02rem;
+      font-size: 1rem;
       max-width: 540px;
-      margin-bottom: 30px;
+      margin-bottom: 26px;
     }
 
     .hero-cta {
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
-      margin-bottom: 34px;
+      margin-bottom: 30px;
     }
 
     .quick-bar {
@@ -321,21 +273,21 @@
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 16px;
-      padding: 16px 18px;
+      padding: 15px 18px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 10px;
-      transition: border-color 0.3s ease, transform 0.3s ease;
+      transition: transform 0.25s ease, border-color 0.25s ease;
     }
 
     .quick-card:hover {
-      border-color: var(--gold);
       transform: translateY(-3px);
+      border-color: var(--gold);
     }
 
     .quick-label {
-      font-size: 0.74rem;
+      font-size: 0.72rem;
       color: var(--muted);
       text-transform: uppercase;
       letter-spacing: 0.8px;
@@ -343,40 +295,40 @@
 
     .quick-val {
       font-weight: 700;
-      font-size: 1.05rem;
+      font-size: 1.02rem;
       color: var(--gold-light);
     }
 
-    /* Sağ Vitrin Kartı (Logo & Teras Ambiyansı) */
+    /* Sağ Logo Kartı */
     .hero-showcase {
-      position: relative;
       background: linear-gradient(160deg, var(--surface-elevated), var(--surface));
       border: 1px solid var(--border);
-      border-radius: 28px;
-      padding: 36px 28px;
+      border-radius: 26px;
+      padding: 34px 26px;
       text-align: center;
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
-      animation: floatCard 6s ease-in-out infinite alternate;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+      animation: gentleFloat 5s ease-in-out infinite alternate;
     }
 
-    @keyframes floatCard {
+    @keyframes gentleFloat {
       from { transform: translateY(0px); }
-      to { transform: translateY(-10px); }
+      to { transform: translateY(-8px); }
     }
 
     .showcase-logo {
-      width: 150px;
-      height: 150px;
+      width: 148px;
+      height: 148px;
       border-radius: 50%;
       object-fit: cover;
       border: 3px solid var(--gold);
-      box-shadow: 0 0 36px rgba(212, 163, 89, 0.32);
-      margin-bottom: 20px;
+      background: #14110f;
+      box-shadow: 0 0 32px rgba(212, 163, 89, 0.28);
+      margin-bottom: 18px;
     }
 
     .showcase-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.75rem;
+      font-size: 1.7rem;
       color: var(--gold-light);
       margin-bottom: 6px;
     }
@@ -384,67 +336,46 @@
     .showcase-meta {
       color: var(--muted);
       font-size: 0.9rem;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
 
     .wifi-pill {
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      background: rgba(12, 10, 9, 0.65);
+      background: rgba(12, 10, 9, 0.7);
       border: 1px dashed var(--gold);
       padding: 10px 18px;
       border-radius: 999px;
       font-size: 0.9rem;
       cursor: pointer;
-      transition: background 0.25s;
     }
 
-    .wifi-pill:hover {
-      background: rgba(212, 163, 89, 0.14);
-    }
-
-    /* Bölümler & Scroll Animasyonu */
+    /* Bölümler */
     section {
-      padding: 64px 0;
-    }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
+      padding: 58px 0;
     }
 
     .sec-head {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: flex-end;
-      gap: 16px;
-      margin-bottom: 30px;
+      margin-bottom: 26px;
     }
 
     .sec-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 2.2rem;
-      color: var(--text);
+      font-size: 2.1rem;
+      margin-bottom: 4px;
     }
 
     .sec-sub {
       color: var(--muted);
-      font-size: 0.95rem;
+      font-size: 0.92rem;
     }
 
     /* Kampanyalı Menüler */
     .campaign-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 22px;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 20px;
     }
 
     .camp-card {
@@ -453,30 +384,29 @@
       border-radius: 20px;
       overflow: hidden;
       display: grid;
-      grid-template-columns: 130px 1fr;
-      transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+      grid-template-columns: 125px 1fr;
+      transition: transform 0.3s ease, border-color 0.3s ease;
     }
 
     .camp-card:hover {
-      transform: translateY(-5px);
+      transform: translateY(-4px);
       border-color: var(--gold);
-      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
     }
 
     .camp-img {
       width: 100%;
       height: 100%;
-      min-height: 150px;
+      min-height: 145px;
       object-fit: cover;
-      transition: transform 0.5s ease;
+      transition: transform 0.45s ease;
     }
 
     .camp-card:hover .camp-img {
-      transform: scale(1.08);
+      transform: scale(1.07);
     }
 
     .camp-body {
-      padding: 18px 20px;
+      padding: 16px 18px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -484,46 +414,41 @@
 
     .badge-camp {
       align-self: flex-start;
-      font-size: 0.7rem;
+      font-size: 0.68rem;
       font-weight: 700;
       letter-spacing: 1px;
-      padding: 4px 10px;
+      padding: 3px 9px;
       border-radius: 6px;
       background: rgba(212, 163, 89, 0.16);
       color: var(--gold-light);
     }
 
     .camp-price {
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       font-weight: 700;
       color: var(--gold);
       margin-top: 8px;
     }
 
-    /* Arama ve Kategori Sekmeleri */
+    /* Arama ve Sekmeler */
     .controls {
       display: flex;
       flex-direction: column;
-      gap: 16px;
-      margin-bottom: 28px;
-    }
-
-    .search-box {
-      position: relative;
-      max-width: 420px;
+      gap: 14px;
+      margin-bottom: 24px;
     }
 
     .search-box input {
       width: 100%;
-      padding: 12px 16px;
+      max-width: 420px;
+      padding: 11px 15px;
       border-radius: 12px;
       border: 1px solid var(--border);
       background: var(--surface);
       color: var(--text);
       font-family: inherit;
-      font-size: 0.94rem;
+      font-size: 0.92rem;
       outline: none;
-      transition: border-color 0.25s;
     }
 
     .search-box input:focus {
@@ -534,23 +459,18 @@
       display: flex;
       gap: 10px;
       overflow-x: auto;
-      padding-bottom: 6px;
-      scrollbar-width: none;
-    }
-
-    .tabs::-webkit-scrollbar {
-      display: none;
+      padding-bottom: 4px;
     }
 
     .tab {
       white-space: nowrap;
-      padding: 9px 18px;
+      padding: 8px 16px;
       border-radius: 999px;
       background: var(--surface);
       border: 1px solid var(--border);
       color: var(--muted);
       font-weight: 600;
-      font-size: 0.86rem;
+      font-size: 0.85rem;
       cursor: pointer;
       transition: all 0.25s ease;
     }
@@ -560,41 +480,39 @@
       background: var(--gold);
       color: #110d0a;
       border-color: var(--gold);
-      transform: translateY(-1px);
     }
 
-    /* Ürün Kartları */
+    /* Ürün Grid */
     .menu-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(265px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 18px;
     }
 
     .item-card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 20px;
+      border-radius: 18px;
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
-      animation: cardFadeIn 0.4s ease forwards;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+      animation: popIn 0.35s ease;
     }
 
-    @keyframes cardFadeIn {
-      from { opacity: 0; transform: translateY(14px); }
+    @keyframes popIn {
+      from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
     .item-card:hover {
-      transform: translateY(-6px);
+      transform: translateY(-5px);
       border-color: var(--gold);
-      box-shadow: 0 18px 36px rgba(0, 0, 0, 0.45);
     }
 
     .item-img-wrap {
       position: relative;
-      height: 185px;
+      height: 180px;
       overflow: hidden;
       background: #1c1815;
     }
@@ -603,34 +521,32 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.55s ease;
+      transition: transform 0.45s ease;
     }
 
     .item-card:hover .item-img-wrap img {
-      transform: scale(1.09);
+      transform: scale(1.08);
     }
 
     .item-cat-tag {
       position: absolute;
-      top: 12px;
-      left: 12px;
-      background: rgba(12, 10, 9, 0.78);
-      backdrop-filter: blur(6px);
+      top: 10px;
+      left: 10px;
+      background: rgba(12, 10, 9, 0.8);
       border: 1px solid var(--border);
       color: var(--gold-light);
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       font-weight: 600;
-      padding: 4px 10px;
+      padding: 3px 9px;
       border-radius: 999px;
     }
 
     .item-content {
-      padding: 18px;
+      padding: 16px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       flex: 1;
-      gap: 10px;
     }
 
     .item-header {
@@ -642,27 +558,28 @@
 
     .item-name {
       font-weight: 700;
-      font-size: 1.02rem;
+      font-size: 1rem;
     }
 
     .item-price {
       font-weight: 700;
       color: var(--gold);
-      font-size: 1.02rem;
+      font-size: 0.98rem;
       white-space: nowrap;
     }
 
     .item-desc {
       color: var(--muted);
-      font-size: 0.85rem;
+      font-size: 0.84rem;
+      margin-top: 6px;
     }
 
     /* Footer */
     footer {
       border-top: 1px solid var(--border);
       background: var(--surface);
-      padding: 36px 0;
-      margin-top: 40px;
+      padding: 32px 0;
+      margin-top: 32px;
     }
 
     .footer-flex {
@@ -670,24 +587,23 @@
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-      gap: 20px;
+      gap: 16px;
     }
 
     .toast {
       position: fixed;
-      bottom: 24px;
-      right: 24px;
+      bottom: 22px;
+      right: 22px;
       background: var(--gold);
       color: #110d0a;
       font-weight: 700;
-      padding: 12px 20px;
-      border-radius: 12px;
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
+      padding: 11px 18px;
+      border-radius: 10px;
       opacity: 0;
-      transform: translateY(14px);
-      transition: 0.3s ease;
+      transform: translateY(10px);
+      transition: 0.25s ease;
       pointer-events: none;
-      z-index: 999;
+      z-index: 9999;
     }
 
     .toast.show {
@@ -710,26 +626,17 @@
 </head>
 <body>
 
-  <!-- Açılış Animasyonu -->
   <div class="loader-overlay" id="loader">
     <div class="loader-ring">
-      <img src="https://qr.peraterasokeysalonu.com.tr/uploads/u_6ab2e00994a0b0.73770600.jpeg" alt="Pera Teras Logo">
+      <img src="logo.png" alt="Pera Teras Logo" onerror="this.style.display='none'">
     </div>
     <div class="loader-text">Pera Teras</div>
   </div>
 
-  <div class="ambient-glow glow-1"></div>
-  <div class="ambient-glow glow-2"></div>
-
-  <!-- Üst Menü -->
   <header>
     <div class="container nav">
       <a href="#" class="brand">
-        <img
-          src="https://qr.peraterasokeysalonu.com.tr/uploads/u_6ab2e00994a0b0.73770600.jpeg"
-          alt="Pera Teras Kafe Logo"
-          class="brand-logo"
-        />
+        <img src="logo.png" alt="Pera Teras Logo" class="brand-logo" onerror="this.style.display='none'" />
         <div>
           <div class="brand-title">PERA TERAS</div>
           <div class="brand-sub">Kafe & Okey Salonu • Konya</div>
@@ -746,15 +653,13 @@
     </div>
   </header>
 
-  <!-- Hero -->
   <section class="hero">
     <div class="container hero-grid">
       <div>
         <span class="pill">✦ KONYA • PERA TERAS</span>
         <h1>Teras Keyfi, <span>Özel Kahveler</span> ve Seçkin Lezzetler</h1>
         <p>
-          Konya'nın en keyifli teras atmosferinde taze çekilmiş kahveler, el yapımı tatlılar,
-          sıcak kruvasanlar ve ferahlatıcı mokteyllerle misafirlerimizi ağırlıyoruz.
+          Konya'da taze kahveler, el yapımı tatlılar, sıcak kruvasanlar ve ferahlatıcı içeceklerle keyifli vakit geçirebilirsiniz.
         </p>
 
         <div class="hero-cta">
@@ -781,13 +686,8 @@
         </div>
       </div>
 
-      <!-- Sağ Logo Kartı -->
       <div class="hero-showcase">
-        <img
-          src="https://qr.peraterasokeysalonu.com.tr/uploads/u_6ab2e00994a0b0.73770600.jpeg"
-          alt="Pera Teras Okey Salonu"
-          class="showcase-logo"
-        />
+        <img src="logo.png" alt="Pera Teras Okey Salonu" class="showcase-logo" onerror="this.style.display='none'" />
         <h2 class="showcase-title">Pera Teras Kafe & Okey</h2>
         <p class="showcase-meta">Sıcak Atmosfer • Hızlı Servis • Dijital Menü</p>
         <div class="wifi-pill" onclick="copyWifi()">
@@ -798,44 +698,33 @@
     </div>
   </section>
 
-  <!-- Kampanyalı Menüler (Orijinal Sitedeki Fiyatlar) -->
-  <section id="kampanyalar" class="reveal">
+  <section id="kampanyalar">
     <div class="container">
       <div class="sec-head">
-        <div>
-          <h2 class="sec-title">Kampanyalı Menüler</h2>
-          <p class="sec-sub">Öne çıkan imza tatlılarımız</p>
-        </div>
+        <h2 class="sec-title">Kampanyalı Menüler</h2>
+        <p class="sec-sub">Öne çıkan imza tatlılarımız</p>
       </div>
 
       <div class="campaign-grid">
         <div class="camp-card">
-          <img
-            src="https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&w=600&q=80"
-            alt="Limonlu Cheesecake"
-            class="camp-img"
-          />
+          <img src="https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&w=600&q=80" alt="Limonlu Cheesecake" class="camp-img" />
           <div class="camp-body">
             <div>
               <span class="badge-camp">KAMPANYA</span>
-              <h3 style="margin-top: 8px; font-size: 1.1rem;">LİMONLU CHEESECAKE</h3>
-              <p class="item-desc" style="margin-top: 4px;">Taze limon soslu, kremsi dokulu özel dilim.</p>
+              <h3 style="margin-top: 8px; font-size: 1.08rem;">LİMONLU CHEESCAKE</h3>
+              <p class="item-desc">Taze limon soslu, kremsi dokulu özel dilim.</p>
             </div>
             <div class="camp-price">250.00 ₺</div>
           </div>
         </div>
 
         <div class="camp-card">
-          <img
-            src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=600&q=80"
-            alt="Frambuazlı Cheesecake"
-            class="camp-img"
-          />
+          <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=600&q=80" alt="Frambuazlı Cheesecake" class="camp-img" />
           <div class="camp-body">
             <div>
               <span class="badge-camp">KAMPANYA</span>
-              <h3 style="margin-top: 8px; font-size: 1.1rem;">FRAMBUAZLI CHEESECAKE</h3>
-              <p class="item-desc" style="margin-top: 4px;">Yoğun frambuaz soslu imza cheesecake.</p>
+              <h3 style="margin-top: 8px; font-size: 1.08rem;">FRAMBUAZLI CHEESCAKE</h3>
+              <p class="item-desc">Yoğun frambuaz soslu imza cheesecake.</p>
             </div>
             <div class="camp-price">250.00 ₺</div>
           </div>
@@ -844,14 +733,11 @@
     </div>
   </section>
 
-  <!-- Menü Kategorileri -->
-  <section id="menu" class="reveal">
+  <section id="menu">
     <div class="container">
       <div class="sec-head">
-        <div>
-          <h2 class="sec-title">Menü & Ürünler</h2>
-          <p class="sec-sub">Kategori seçin veya ürün adı arayın</p>
-        </div>
+        <h2 class="sec-title">Menü & Ürünler</h2>
+        <p class="sec-sub">Kategori seçin veya ürün adı arayın</p>
       </div>
 
       <div class="controls">
@@ -865,15 +751,10 @@
     </div>
   </section>
 
-  <!-- Footer -->
   <footer>
     <div class="container footer-flex">
       <div style="display: flex; align-items: center; gap: 12px;">
-        <img
-          src="https://qr.peraterasokeysalonu.com.tr/uploads/u_6ab2e00994a0b0.73770600.jpeg"
-          alt="Logo"
-          style="width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 1px solid var(--gold);"
-        />
+        <img src="logo.png" alt="Logo" style="width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 1px solid var(--gold);" onerror="this.style.display='none'" />
         <div>
           <strong style="color: var(--gold-light);">Pera Teras Kafe & Okey Salonu</strong>
           <div style="font-size: 0.8rem; color: var(--muted);">Konya • Tüm Hakları Saklıdır</div>
@@ -888,25 +769,15 @@
   <div class="toast" id="toast">Wi-Fi şifresi kopyalandı: noamoa</div>
 
   <script>
-    // Açılış animasyonunu kapat
-    window.addEventListener("load", () => {
-      setTimeout(() => {
-        document.getElementById("loader").classList.add("hidden");
-      }, 650);
-    });
+    function hideLoader() {
+      const loader = document.getElementById("loader");
+      if (loader) loader.classList.add("done");
+    }
 
-    // Kaydırma animasyonu (IntersectionObserver)
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-        }
-      });
-    }, { threshold: 0.12 });
+    window.addEventListener("DOMContentLoaded", () => setTimeout(hideLoader, 250));
+    window.addEventListener("load", () => setTimeout(hideLoader, 250));
+    setTimeout(hideLoader, 900);
 
-    document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
-
-    // Orijinal sitedeki 7 ana kategori
     const CATEGORIES = [
       "Tümü",
       "KAHVELER",
@@ -918,7 +789,6 @@
       "TATLILAR"
     ];
 
-    // Ürün listesi (Mevcut sitedeki güncel fiyatları ve kendi ürün görsellerini buraya ekleyebilirsin)
     const MENU_ITEMS = [
       {
         category: "TATLILAR",
@@ -937,49 +807,49 @@
       {
         category: "KAHVELER",
         name: "Türk Kahvesi",
-        price: "Fiyat Güncellenecek",
+        price: "—",
         desc: "Orta, sade veya şekerli seçenekleriyle bol köpüklü Türk kahvesi.",
         img: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=600&q=80"
       },
       {
         category: "KAHVELER",
         name: "Caffè Latte",
-        price: "Fiyat Güncellenecek",
+        price: "—",
         desc: "Taze espresso ve kadifemsi süt kreması uyumu.",
         img: "https://images.unsplash.com/photo-1570968915860-54d5c301fa9f?auto=format&fit=crop&w=600&q=80"
       },
       {
         category: "Sıcak İçecekler",
         name: "Demleme Çay",
-        price: "Fiyat Güncellenecek",
+        price: "—",
         desc: "İnce belli bardakta taze demlenmiş Karadeniz çayı.",
         img: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=600&q=80"
       },
       {
         category: "Soğuk İçecekler",
         name: "Ice Americano",
-        price: "Fiyat Güncellenecek",
+        price: "—",
         desc: "Buz küpleri üzerine çift shot taze espresso.",
         img: "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?auto=format&fit=crop&w=600&q=80"
       },
       {
         category: "Aperatifler",
         name: "Çıtır Sepet",
-        price: "Fiyat Güncellenecek",
+        price: "—",
         desc: "Patates kızartması, soğan halkası ve özel soslar eşliğinde.",
         img: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=600&q=80"
       },
       {
         category: "Mokteyl",
         name: "Orman Meyveli Mokteyl",
-        price: "Fiyat Güncellenecek",
+        price: "—",
         desc: "Alkolsüz, taze nane ve orman meyveleriyle hazırlanan özel içecek.",
         img: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=600&q=80"
       },
       {
         category: "KRUVASAN",
         name: "Çikolatalı Kruvasan",
-        price: "Fiyat Güncellenecek",
+        price: "—",
         desc: "Sıcak fırından çıkan tereyağlı, Belçika çikolatalı kruvasan.",
         img: "https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=600&q=80"
       }
@@ -1030,7 +900,7 @@
                 <h3 class="item-name">${item.name}</h3>
                 <span class="item-price">${item.price}</span>
               </div>
-              <p class="item-desc" style="margin-top: 6px;">${item.desc}</p>
+              <p class="item-desc">${item.desc}</p>
             </div>
           </div>
         </article>
