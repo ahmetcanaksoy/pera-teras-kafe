@@ -1,921 +1,714 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pera Teras Kafe & Okey Salonu | Konya</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #0c0a09;
-      --surface: #161311;
-      --surface-elevated: #1f1a17;
-      --gold: #d4a359;
-      --gold-light: #f0cb8c;
-      --text: #faf6f0;
-      --muted: #a69b8d;
-      --border: rgba(212, 163, 89, 0.18);
-      --glass: rgba(22, 19, 17, 0.86);
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-      background-color: #0c0a09;
-    }
-
-    body {
-      background-color: var(--bg);
-      color: var(--text);
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      overflow-x: hidden;
-      line-height: 1.6;
-      min-height: 100vh;
-    }
-
-    /* Hızlı Kapanan Açılış Ekranı */
-    .loader-overlay {
-      position: fixed;
-      inset: 0;
-      background: #090706;
-      z-index: 9999;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 14px;
-      opacity: 1;
-      visibility: visible;
-      transition: opacity 0.35s ease, visibility 0.35s ease;
-    }
-
-    .loader-overlay.done {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-
-    .loader-ring {
-      width: 82px;
-      height: 82px;
-      border-radius: 50%;
-      padding: 3px;
-      background: conic-gradient(from 0deg, var(--gold), transparent 75%, var(--gold));
-      animation: spin 1.1s linear infinite;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .loader-ring img {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      object-fit: cover;
-      background: #14110f;
-    }
-
-    .loader-text {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.25rem;
-      letter-spacing: 3px;
-      color: var(--gold-light);
-      text-transform: uppercase;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    .container {
-      width: 100%;
-      max-width: 1180px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-
-    /* Header */
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: var(--glass);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .nav {
-      height: 76px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      text-decoration: none;
-      color: var(--text);
-    }
-
-    .brand-logo {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid var(--gold);
-      background: #14110f;
-      transition: transform 0.3s ease;
-    }
-
-    .brand:hover .brand-logo {
-      transform: scale(1.06);
-    }
-
-    .brand-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.35rem;
-      font-weight: 700;
-      line-height: 1.1;
-      color: var(--gold-light);
-    }
-
-    .brand-sub {
-      font-size: 0.7rem;
-      color: var(--muted);
-      letter-spacing: 1.4px;
-      text-transform: uppercase;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 26px;
-    }
-
-    .nav-links a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 0.92rem;
-      font-weight: 500;
-      transition: color 0.25s;
-    }
-
-    .nav-links a:hover {
-      color: var(--gold-light);
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 10px 18px;
-      border-radius: 12px;
-      font-weight: 600;
-      font-size: 0.9rem;
-      text-decoration: none;
-      cursor: pointer;
-      border: none;
-      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
-    }
-
-    .btn-gold {
-      background: linear-gradient(135deg, var(--gold), #b68238);
-      color: #110d0a;
-    }
-
-    .btn-gold:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 24px rgba(212, 163, 89, 0.3);
-    }
-
-    .btn-glass {
-      background: rgba(255, 255, 255, 0.04);
-      color: var(--text);
-      border: 1px solid var(--border);
-    }
-
-    .btn-glass:hover {
-      border-color: var(--gold);
-      color: var(--gold-light);
-    }
-
-    /* Hero */
-    .hero {
-      padding: 68px 0 56px;
-      background: radial-gradient(circle at 80% 15%, rgba(212, 163, 89, 0.12), transparent 55%);
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      align-items: center;
-      gap: 36px;
-    }
-
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 14px;
-      border-radius: 999px;
-      background: rgba(212, 163, 89, 0.12);
-      border: 1px solid var(--border);
-      color: var(--gold-light);
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 1px;
-      margin-bottom: 16px;
-    }
-
-    .hero h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2.3rem, 5vw, 3.7rem);
-      line-height: 1.1;
-      margin-bottom: 16px;
-    }
-
-    .hero h1 span {
-      color: var(--gold);
-    }
-
-    .hero p {
-      color: var(--muted);
-      font-size: 1rem;
-      max-width: 540px;
-      margin-bottom: 26px;
-    }
-
-    .hero-cta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 30px;
-    }
-
-    .quick-bar {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-    }
-
-    .quick-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 15px 18px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      transition: transform 0.25s ease, border-color 0.25s ease;
-    }
-
-    .quick-card:hover {
-      transform: translateY(-3px);
-      border-color: var(--gold);
-    }
-
-    .quick-label {
-      font-size: 0.72rem;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-    }
-
-    .quick-val {
-      font-weight: 700;
-      font-size: 1.02rem;
-      color: var(--gold-light);
-    }
-
-    /* Sağ Logo Kartı */
-    .hero-showcase {
-      background: linear-gradient(160deg, var(--surface-elevated), var(--surface));
-      border: 1px solid var(--border);
-      border-radius: 26px;
-      padding: 34px 26px;
-      text-align: center;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
-      animation: gentleFloat 5s ease-in-out infinite alternate;
-    }
-
-    @keyframes gentleFloat {
-      from { transform: translateY(0px); }
-      to { transform: translateY(-8px); }
-    }
-
-    .showcase-logo {
-      width: 148px;
-      height: 148px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid var(--gold);
-      background: #14110f;
-      box-shadow: 0 0 32px rgba(212, 163, 89, 0.28);
-      margin-bottom: 18px;
-    }
-
-    .showcase-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.7rem;
-      color: var(--gold-light);
-      margin-bottom: 6px;
-    }
-
-    .showcase-meta {
-      color: var(--muted);
-      font-size: 0.9rem;
-      margin-bottom: 18px;
-    }
-
-    .wifi-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: rgba(12, 10, 9, 0.7);
-      border: 1px dashed var(--gold);
-      padding: 10px 18px;
-      border-radius: 999px;
-      font-size: 0.9rem;
-      cursor: pointer;
-    }
-
-    /* Bölümler */
-    section {
-      padding: 58px 0;
-    }
-
-    .sec-head {
-      margin-bottom: 26px;
-    }
-
-    .sec-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.1rem;
-      margin-bottom: 4px;
-    }
-
-    .sec-sub {
-      color: var(--muted);
-      font-size: 0.92rem;
-    }
-
-    /* Kampanyalı Menüler */
-    .campaign-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-      gap: 20px;
-    }
-
-    .camp-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      overflow: hidden;
-      display: grid;
-      grid-template-columns: 125px 1fr;
-      transition: transform 0.3s ease, border-color 0.3s ease;
-    }
-
-    .camp-card:hover {
-      transform: translateY(-4px);
-      border-color: var(--gold);
-    }
-
-    .camp-img {
-      width: 100%;
-      height: 100%;
-      min-height: 145px;
-      object-fit: cover;
-      transition: transform 0.45s ease;
-    }
-
-    .camp-card:hover .camp-img {
-      transform: scale(1.07);
-    }
-
-    .camp-body {
-      padding: 16px 18px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .badge-camp {
-      align-self: flex-start;
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 1px;
-      padding: 3px 9px;
-      border-radius: 6px;
-      background: rgba(212, 163, 89, 0.16);
-      color: var(--gold-light);
-    }
-
-    .camp-price {
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: var(--gold);
-      margin-top: 8px;
-    }
-
-    /* Arama ve Sekmeler */
-    .controls {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      margin-bottom: 24px;
-    }
-
-    .search-box input {
-      width: 100%;
-      max-width: 420px;
-      padding: 11px 15px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      background: var(--surface);
-      color: var(--text);
-      font-family: inherit;
-      font-size: 0.92rem;
-      outline: none;
-    }
-
-    .search-box input:focus {
-      border-color: var(--gold);
-    }
-
-    .tabs {
-      display: flex;
-      gap: 10px;
-      overflow-x: auto;
-      padding-bottom: 4px;
-    }
-
-    .tab {
-      white-space: nowrap;
-      padding: 8px 16px;
-      border-radius: 999px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      color: var(--muted);
-      font-weight: 600;
-      font-size: 0.85rem;
-      cursor: pointer;
-      transition: all 0.25s ease;
-    }
-
-    .tab.active,
-    .tab:hover {
-      background: var(--gold);
-      color: #110d0a;
-      border-color: var(--gold);
-    }
-
-    /* Ürün Grid */
-    .menu-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 18px;
-    }
-
-    .item-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.3s ease, border-color 0.3s ease;
-      animation: popIn 0.35s ease;
-    }
-
-    @keyframes popIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .item-card:hover {
-      transform: translateY(-5px);
-      border-color: var(--gold);
-    }
-
-    .item-img-wrap {
-      position: relative;
-      height: 180px;
-      overflow: hidden;
-      background: #1c1815;
-    }
-
-    .item-img-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.45s ease;
-    }
-
-    .item-card:hover .item-img-wrap img {
-      transform: scale(1.08);
-    }
-
-    .item-cat-tag {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      background: rgba(12, 10, 9, 0.8);
-      border: 1px solid var(--border);
-      color: var(--gold-light);
-      font-size: 0.7rem;
-      font-weight: 600;
-      padding: 3px 9px;
-      border-radius: 999px;
-    }
-
-    .item-content {
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      flex: 1;
-    }
-
-    .item-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 10px;
-    }
-
-    .item-name {
-      font-weight: 700;
-      font-size: 1rem;
-    }
-
-    .item-price {
-      font-weight: 700;
-      color: var(--gold);
-      font-size: 0.98rem;
-      white-space: nowrap;
-    }
-
-    .item-desc {
-      color: var(--muted);
-      font-size: 0.84rem;
-      margin-top: 6px;
-    }
-
-    /* Footer */
-    footer {
-      border-top: 1px solid var(--border);
-      background: var(--surface);
-      padding: 32px 0;
-      margin-top: 32px;
-    }
-
-    .footer-flex {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .toast {
-      position: fixed;
-      bottom: 22px;
-      right: 22px;
-      background: var(--gold);
-      color: #110d0a;
-      font-weight: 700;
-      padding: 11px 18px;
-      border-radius: 10px;
-      opacity: 0;
-      transform: translateY(10px);
-      transition: 0.25s ease;
-      pointer-events: none;
-      z-index: 9999;
-    }
-
-    .toast.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    @media (max-width: 860px) {
-      .hero-grid {
-        grid-template-columns: 1fr;
-      }
-      .nav-links {
-        display: none;
-      }
-      .quick-bar {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pera Teras Kafe &amp; Okey Salonu | Konya</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f4ee;
+  --bg-2:#f0e8dc;
+  --card:#ffffff;
+  --ink:#211914;
+  --muted:#756658;
+  --gold:#c28538;
+  --gold-dark:#9e6824;
+  --gold-soft:#fbf2e4;
+  --border:#e5dacb;
+  --shadow:0 14px 34px rgba(33,25,20,0.06);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;background:var(--bg)}
+body{background:var(--bg);color:var(--ink);font-family:"Plus Jakarta Sans",Segoe UI,Arial,sans-serif;line-height:1.6;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button,input,select{font-family:inherit}
+.wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+
+/* ================= ACILIS ANIMASYONU (PRELOADER) ================= */
+.preloader{
+  position:fixed;inset:0;z-index:9999;
+  background:linear-gradient(145deg,#fffdf9 0%,#f2e8da 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;
+  transition:opacity 0.65s cubic-bezier(.22,1,.36,1),transform 0.65s cubic-bezier(.22,1,.36,1),visibility 0.65s;
+}
+.preloader.hide{opacity:0;transform:translateY(-18px);visibility:hidden;pointer-events:none}
+.pre-ring{
+  width:116px;height:116px;border-radius:50%;padding:4px;
+  background:conic-gradient(from 0deg,var(--gold),#f3dec0 45%,var(--gold) 85%,transparent);
+  animation:spinRing 1.4s linear infinite;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 14px 36px rgba(194,133,56,0.22);
+}
+.pre-ring img{
+  width:100%;height:100%;border-radius:50%;object-fit:cover;background:#14100d;
+  animation:counterRing 1.4s linear infinite;
+}
+.pre-brand{font-family:"Cormorant Garamond",serif;font-size:1.75rem;font-weight:700;letter-spacing:2px;color:var(--ink)}
+.pre-sub{font-size:0.78rem;letter-spacing:2.4px;text-transform:uppercase;color:var(--gold-dark);font-weight:700}
+.pre-bar{width:180px;height:4px;background:#e6d9c7;border-radius:999px;overflow:hidden}
+.pre-bar span{display:block;height:100%;width:0%;background:linear-gradient(90deg,var(--gold-dark),var(--gold));animation:loadFill 0.9s ease forwards}
+@keyframes spinRing{to{transform:rotate(360deg)}}
+@keyframes counterRing{to{transform:rotate(-360deg)}}
+@keyframes loadFill{to{width:100%}}
+
+/* ================= UST NAVIGASYON ================= */
+header{
+  position:sticky;top:0;z-index:80;
+  background:rgba(255,252,247,0.9);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);
+}
+.nav{height:80px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.brand{display:flex;align-items:center;gap:12px}
+.brand img{width:50px;height:50px;border-radius:50%;object-fit:cover;border:2px solid var(--gold);background:#14100d;transition:transform 0.35s ease}
+.brand:hover img{transform:rotate(8deg) scale(1.06)}
+.brand-t{font-family:"Cormorant Garamond",serif;font-size:1.45rem;font-weight:700;line-height:1.05}
+.brand-s{font-size:0.7rem;color:var(--muted);font-weight:700;letter-spacing:1.2px;text-transform:uppercase}
+
+.nav-links{display:flex;gap:22px;font-size:0.88rem;font-weight:700;color:#5a4d41}
+.nav-links a{position:relative;padding:4px 0;transition:color 0.2s}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:2px;background:var(--gold);transition:width 0.25s}
+.nav-links a:hover{color:var(--gold-dark)}
+.nav-links a:hover::after{width:100%}
+
+.nav-right{display:flex;align-items:center;gap:10px}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:10px 18px;border-radius:12px;font-weight:700;font-size:0.86rem;
+  cursor:pointer;border:none;transition:transform 0.22s ease,box-shadow 0.22s ease,background 0.22s ease;
+}
+.btn:hover{transform:translateY(-2px)}
+.btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:#fff;box-shadow:0 8px 20px rgba(194,133,56,0.28)}
+.btn-soft{background:#fff;color:var(--ink);border:1px solid var(--border)}
+.btn-soft:hover{border-color:var(--gold);color:var(--gold-dark)}
+.cart-badge{background:#211914;color:#fff;font-size:0.74rem;padding:2px 7px;border-radius:999px}
+
+/* ================= HERO ALANI ================= */
+.hero{
+  padding:58px 0 50px;
+  background:radial-gradient(circle at 85% 15%,rgba(194,133,56,0.16),transparent 50%),
+             linear-gradient(180deg,#fffdf9 0%,var(--bg) 100%);
+  border-bottom:1px solid var(--border);
+}
+.hero-grid{display:grid;grid-template-columns:1.15fr 0.85fr;gap:36px;align-items:center}
+.kicker{
+  display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;
+  background:var(--gold-soft);border:1px solid rgba(194,133,56,0.28);
+  color:var(--gold-dark);font-size:0.76rem;font-weight:800;letter-spacing:0.8px;margin-bottom:16px;
+}
+h1{font-family:"Cormorant Garamond",serif;font-size:clamp(2.35rem,5vw,3.7rem);line-height:1.08;margin-bottom:16px}
+h1 span{color:var(--gold-dark)}
+.hero p{color:var(--muted);font-size:1rem;max-width:550px;margin-bottom:26px}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:28px}
+
+.quick-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.q-box{
+  background:var(--card);border:1px solid var(--border);border-radius:16px;padding:14px 15px;
+  box-shadow:0 4px 14px rgba(33,25,20,0.03);transition:transform 0.25s,border-color 0.25s;
+}
+.q-box:hover{transform:translateY(-3px);border-color:var(--gold)}
+.q-k{font-size:0.7rem;color:var(--muted);text-transform:uppercase;font-weight:700;letter-spacing:0.6px}
+.q-v{font-size:0.98rem;font-weight:800;color:var(--ink);margin-top:2px}
+.q-act{margin-top:8px;font-size:0.76rem;font-weight:700;color:var(--gold-dark);cursor:pointer;display:inline-block}
+
+/* Sag Vitrin Karti */
+.hero-card{
+  background:var(--card);border:1px solid var(--border);border-radius:28px;padding:34px 26px;
+  text-align:center;box-shadow:0 22px 48px rgba(33,25,20,0.08);
+  position:relative;overflow:hidden;
+  animation:floatHero 5s ease-in-out infinite alternate;
+}
+.hero-card::before{
+  content:"";position:absolute;top:-60px;right:-60px;width:160px;height:160px;border-radius:50%;
+  background:radial-gradient(circle,rgba(194,133,56,0.16),transparent 70%);
+}
+@keyframes floatHero{from{transform:translateY(0)}to{transform:translateY(-9px)}}
+.hero-card img{
+  width:154px;height:154px;border-radius:50%;object-fit:cover;border:3px solid var(--gold);
+  background:#14100d;margin-bottom:16px;box-shadow:0 12px 28px rgba(194,133,56,0.24);
+}
+.hero-card h2{font-family:"Cormorant Garamond",serif;font-size:1.75rem;margin-bottom:4px}
+.hero-card p{font-size:0.88rem;color:var(--muted);margin:0 auto 18px}
+.quote-pill{
+  background:var(--gold-soft);border:1px dashed var(--gold);border-radius:14px;padding:12px 16px;
+  font-size:0.84rem;color:#4f3e30;font-style:italic;
+}
+
+/* ================= ORTAK BOLUM & REVEAL ================= */
+section{padding:60px 0}
+.reveal{opacity:1;transform:translateY(0);transition:opacity 0.65s ease,transform 0.65s ease}
+.reveal.anim-init{opacity:0;transform:translateY(24px)}
+.reveal.anim-init.in-view{opacity:1;transform:translateY(0)}
+
+.sec-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:14px;margin-bottom:26px}
+.sec-title{font-family:"Cormorant Garamond",serif;font-size:2.15rem;line-height:1.15}
+.sec-sub{color:var(--muted);font-size:0.92rem;margin-top:4px}
+
+/* ================= KAMPANYALAR ================= */
+.camp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.camp-card{
+  background:var(--card);border:1px solid var(--border);border-radius:20px;overflow:hidden;
+  display:grid;grid-template-columns:135px 1fr;box-shadow:var(--shadow);
+  transition:transform 0.3s ease,border-color 0.3s ease;
+}
+.camp-card:hover{transform:translateY(-5px);border-color:var(--gold)}
+.camp-card img{width:100%;height:100%;min-height:155px;object-fit:cover;transition:transform 0.5s ease}
+.camp-card:hover img{transform:scale(1.07)}
+.camp-body{padding:16px 18px;display:flex;flex-direction:column;justify-content:space-between}
+.badge{display:inline-block;background:var(--gold-soft);color:var(--gold-dark);font-size:0.7rem;font-weight:800;padding:4px 10px;border-radius:6px;margin-bottom:6px}
+.camp-foot{display:flex;align-items:center;justify-content:space-between;margin-top:12px}
+.price{font-size:1.2rem;font-weight:800;color:var(--gold-dark)}
+
+/* ================= MENU & KATEGORILER ================= */
+.filter-bar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:16px}
+.search-inp{
+  width:100%;max-width:380px;padding:12px 16px;border-radius:12px;
+  border:1px solid var(--border);background:var(--card);color:var(--ink);font-size:0.9rem;outline:none;
+}
+.search-inp:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(194,133,56,0.14)}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;margin-bottom:24px}
+.tab{
+  white-space:nowrap;padding:9px 17px;border-radius:999px;border:1px solid var(--border);
+  background:var(--card);color:#5c4f44;font-weight:700;font-size:0.84rem;cursor:pointer;transition:all 0.2s;
+}
+.tab:hover{border-color:var(--gold);color:var(--gold-dark)}
+.tab.active{background:var(--gold);color:#fff;border-color:var(--gold);box-shadow:0 6px 16px rgba(194,133,56,0.26)}
+
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(265px,1fr));gap:20px}
+.m-card{
+  background:var(--card);border:1px solid var(--border);border-radius:20px;overflow:hidden;
+  display:flex;flex-direction:column;box-shadow:var(--shadow);
+  transition:transform 0.3s ease,border-color 0.3s ease;animation:cardPop 0.35s ease;
+}
+@keyframes cardPop{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.m-card:hover{transform:translateY(-5px);border-color:var(--gold)}
+.m-img{position:relative;height:176px;overflow:hidden;background:var(--bg-2)}
+.m-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease}
+.m-card:hover .m-img img{transform:scale(1.07)}
+.m-tag{
+  position:absolute;top:12px;left:12px;background:rgba(255,253,249,0.92);
+  color:var(--gold-dark);font-size:0.7rem;font-weight:800;padding:4px 10px;border-radius:999px;
+}
+.m-body{padding:16px 18px;display:flex;flex-direction:column;justify-content:space-between;flex:1}
+.m-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.m-name{font-weight:800;font-size:1.02rem}
+.m-price{font-weight:800;color:var(--gold-dark);white-space:nowrap}
+.m-desc{font-size:0.84rem;color:var(--muted);margin-top:6px}
+.m-actions{display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-top:12px;border-top:1px solid #f1e9de}
+.add-btn{
+  background:var(--gold-soft);color:var(--gold-dark);border:1px solid rgba(194,133,56,0.3);
+  padding:7px 14px;border-radius:10px;font-weight:800;font-size:0.8rem;cursor:pointer;transition:all 0.2s;
+}
+.add-btn:hover{background:var(--gold);color:#fff}
+
+/* ================= YARATICI MODULLER (BARISTA & OKEY YAZBOZ) ================= */
+.studio-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.panel{background:var(--card);border:1px solid var(--border);border-radius:24px;padding:26px;box-shadow:var(--shadow)}
+.panel h3{font-family:"Cormorant Garamond",serif;font-size:1.65rem;margin-bottom:6px}
+.panel p{font-size:0.88rem;color:var(--muted);margin-bottom:18px}
+.opt-group{margin-bottom:14px}
+.opt-label{display:block;font-size:0.78rem;font-weight:800;color:#5c4f44;margin-bottom:6px;text-transform:uppercase}
+.chip-row{display:flex;flex-wrap:wrap;gap:8px}
+.chip{
+  padding:7px 13px;border-radius:10px;border:1px solid var(--border);background:var(--bg);
+  font-size:0.82rem;font-weight:700;cursor:pointer;transition:all 0.2s;
+}
+.chip.sel{background:var(--gold);color:#fff;border-color:var(--gold)}
+.craft-summary{
+  margin-top:16px;padding:14px 16px;border-radius:14px;background:var(--gold-soft);
+  display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+}
+
+/* Okey Yazboz */
+.okey-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:14px}
+.player-box{background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:12px}
+.player-box input{width:100%;border:none;background:transparent;font-weight:800;font-size:0.9rem;color:var(--ink);margin-bottom:8px;outline:none}
+.score-row{display:flex;align-items:center;justify-content:space-between;gap:6px}
+.score-val{font-size:1.35rem;font-weight:800;color:var(--gold-dark)}
+.s-btn{
+  width:30px;height:30px;border-radius:8px;border:1px solid var(--border);background:#fff;
+  font-weight:800;cursor:pointer;transition:background 0.2s;
+}
+.s-btn:hover{background:var(--gold);color:#fff}
+
+/* ================= SEPET CEKMECESI ================= */
+.drawer-bg{position:fixed;inset:0;background:rgba(33,25,20,0.45);z-index:120;display:none}
+.drawer-bg.open{display:block}
+.drawer{
+  position:fixed;top:0;right:-400px;width:100%;max-width:380px;height:100vh;background:#fffdf9;
+  z-index:130;padding:24px;display:flex;flex-direction:column;justify-content:space-between;
+  box-shadow:-12px 0 36px rgba(0,0,0,0.14);transition:right 0.35s ease;
+}
+.drawer.open{right:0}
+.cart-list{flex:1;overflow-y:auto;margin:16px 0;display:flex;flex-direction:column;gap:10px}
+.cart-item{display:flex;justify-content:space-between;align-items:center;background:var(--bg);padding:10px 12px;border-radius:12px;font-size:0.86rem}
+.table-sel{width:100%;padding:10px;border-radius:10px;border:1px solid var(--border);margin-bottom:10px;font-weight:700}
+
+/* ================= FOOTER & TOAST ================= */
+footer{background:var(--bg-2);border-top:1px solid var(--border);padding:32px 0;color:#5c4f44;font-size:0.88rem}
+.foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+.toast{
+  position:fixed;bottom:22px;right:22px;background:#211914;color:#fff;font-weight:700;
+  padding:12px 18px;border-radius:12px;box-shadow:0 12px 28px rgba(0,0,0,0.2);
+  opacity:0;transform:translateY(12px);pointer-events:none;transition:0.25s ease;z-index:999;
+}
+.toast.show{opacity:1;transform:translateY(0)}
+
+@media(max-width:900px){
+  .hero-grid,.studio-grid{grid-template-columns:1fr}
+  .quick-grid{grid-template-columns:1fr}
+  .nav-links{display:none}
+}
+</style>
 </head>
 <body>
 
-  <div class="loader-overlay" id="loader">
-    <div class="loader-ring">
+<!-- ACILMA ANIMASYONU -->
+<div class="preloader" id="preloader">
+  <div class="pre-ring">
+    <img src="logo.png" alt="Pera Teras Logo" onerror="this.style.display='none'">
+  </div>
+  <div class="pre-brand">PERA TERAS</div>
+  <div class="pre-sub">Kafe &amp; Okey Salonu • Konya</div>
+  <div class="pre-bar"><span></span></div>
+</div>
+
+<!-- UST MENU -->
+<header>
+  <div class="wrap nav">
+    <a href="#" class="brand">
       <img src="logo.png" alt="Pera Teras Logo" onerror="this.style.display='none'">
+      <div>
+        <div class="brand-t">Pera Teras</div>
+        <div class="brand-s">Kafe &amp; Okey Salonu • Konya</div>
+      </div>
+    </a>
+
+    <nav class="nav-links">
+      <a href="#kampanyalar">Kampanyalar</a>
+      <a href="#menu">Menü</a>
+      <a href="#atolye">Barista &amp; Okey</a>
+      <a href="#konum">Konum &amp; Wi-Fi</a>
+    </nav>
+
+    <div class="nav-right">
+      <button type="button" class="btn btn-soft" onclick="toggleCart()">
+        Masa Listesi <span class="cart-badge" id="cartCount">0</span>
+      </button>
     </div>
-    <div class="loader-text">Pera Teras</div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="kicker">✦ KONYA • PERA TERAS KAFE &amp; OKEY</span>
+      <h1>Teras Esintisi, <span>Özel Kahveler</span> ve Keyifli Masalar</h1>
+      <p>
+        Konya'nın en ferah teras atmosferinde taze çekilmiş kahveler, el yapımı cheesecake çeşitleri,
+        sıcak kruvasanlar ve özel mokteyllerle hem sohbetin hem oyunun tadını çıkarın.
+      </p>
+
+      <div class="hero-cta">
+        <a href="#menu" class="btn btn-gold">Dijital Menüyü Aç</a>
+        <a href="#atolye" class="btn btn-soft">Kendi Kahveni Tasarla</a>
+      </div>
+
+      <div class="quick-grid" id="konum">
+        <div class="q-box">
+          <div class="q-k">Ücretsiz Wi-Fi</div>
+          <div class="q-v">noamoa</div>
+          <span class="q-act" onclick="copyText('noamoa','Wi-Fi şifresi kopyalandı: noamoa')">Şifreyi Kopyala →</span>
+        </div>
+        <div class="q-box">
+          <div class="q-k">Lokasyon</div>
+          <div class="q-v">Konya</div>
+          <a href="https://maps.google.com/?q=Pera+Teras+Okey+Salonu+Konya" target="_blank" rel="noopener" class="q-act">Yol Tarifi Al →</a>
+        </div>
+        <div class="q-box">
+          <div class="q-k">Okey Masası</div>
+          <div class="q-v">Dijital Yazboz</div>
+          <a href="#atolye" class="q-act">Skor Tut →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-card">
+      <img src="logo.png" alt="Pera Teras Okey Salonu Logosu" onerror="this.style.display='none'">
+      <h2>Pera Teras Kafe &amp; Okey Salonu</h2>
+      <p>Sıcak Atmosfer • Hızlı Masa Servisi • Konya</p>
+      <div class="quote-pill" id="dailyQuote">“İyi bir kahve ve güzel bir sohbet, günün bütün yorgunluğunu alır.”</div>
+    </div>
+  </div>
+</section>
+
+<!-- KAMPANYALI MENULER -->
+<section id="kampanyalar" class="reveal">
+  <div class="wrap">
+    <div class="sec-top">
+      <div>
+        <h2 class="sec-title">Kampanyalı Menüler</h2>
+        <p class="sec-sub">Günün öne çıkan imza cheesecake seçenekleri</p>
+      </div>
+    </div>
+
+    <div class="camp-grid">
+      <div class="camp-card">
+        <img src="https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&amp;fit=crop&amp;w=500&amp;q=80" alt="Limonlu Cheesecake">
+        <div class="camp-body">
+          <div>
+            <span class="badge">KAMPANYA</span>
+            <h3>Limonlu Cheesecake</h3>
+            <p style="font-size:0.82rem;color:var(--muted);margin-top:4px">Ferahlatıcı limon soslu, kremsi günlük dilim.</p>
+          </div>
+          <div class="camp-foot">
+            <span class="price">250.00 ₺</span>
+            <button type="button" class="add-btn" onclick="addToCart('Limonlu Cheesecake', 250)">+ Listeye Ekle</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="camp-card">
+        <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&amp;fit=crop&amp;w=500&amp;q=80" alt="Frambuazlı Cheesecake">
+        <div class="camp-body">
+          <div>
+            <span class="badge">KAMPANYA</span>
+            <h3>Frambuazlı Cheesecake</h3>
+            <p style="font-size:0.82rem;color:var(--muted);margin-top:4px">Taze frambuaz soslu imza cheesecake dilimi.</p>
+          </div>
+          <div class="camp-foot">
+            <span class="price">250.00 ₺</span>
+            <button type="button" class="add-btn" onclick="addToCart('Frambuazlı Cheesecake', 250)">+ Listeye Ekle</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU KATEGORILERI -->
+<section id="menu" class="reveal">
+  <div class="wrap">
+    <div class="sec-top">
+      <div>
+        <h2 class="sec-title">Menü &amp; Kategoriler</h2>
+        <p class="sec-sub">7 kategoride özenle hazırlanmış içecek ve lezzetler</p>
+      </div>
+      <input type="text" id="searchInput" class="search-inp" placeholder="Ürün veya kategori ara (örn: Latte, Mokteyl, Kruvasan)..." oninput="renderMenu()">
+    </div>
+
+    <div class="tabs" id="tabs"></div>
+    <div class="menu-grid" id="menuGrid"></div>
+  </div>
+</section>
+
+<!-- YARATICI BOLUM: BARISTA ATOLYESI & OKEY YAZBOZ -->
+<section id="atolye" class="reveal">
+  <div class="wrap studio-grid">
+    <!-- Barista Atolyesi -->
+    <div class="panel">
+      <h3>Barista Atölyesi • Kendi Kahveni Tasarla</h3>
+      <p>Damak tadına göre kahve bazını, sütünü ve aromasını seç; masana özel hazırla.</p>
+
+      <div class="opt-group">
+        <span class="opt-label">1. Kahve Bazı</span>
+        <div class="chip-row" id="baseChips"></div>
+      </div>
+      <div class="opt-group">
+        <span class="opt-label">2. Süt Tercihi</span>
+        <div class="chip-row" id="milkChips"></div>
+      </div>
+      <div class="opt-group">
+        <span class="opt-label">3. Aroma Dokunuşu</span>
+        <div class="chip-row" id="syrupChips"></div>
+      </div>
+
+      <div class="craft-summary">
+        <div>
+          <div style="font-size:0.75rem;color:var(--muted);font-weight:700">ÖZEL KAHVE SEÇİMİN</div>
+          <div id="customTitle" style="font-weight:800;font-size:0.95rem">Latte • Normal Süt • Sade</div>
+        </div>
+        <button type="button" class="btn btn-gold" onclick="addCustomCoffee()">Masa Listesine Ekle</button>
+      </div>
+    </div>
+
+    <!-- Okey Yazboz -->
+    <div class="panel">
+      <h3>Okey Masası • Canlı Skor Yazboz</h3>
+      <p>Oyuncuların isimlerine dokunup düzenleyebilir, el bittikçe cezaları/puanları kolayca takip edebilirsiniz.</p>
+
+      <div class="okey-grid" id="okeyPlayers"></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
+        <span style="font-size:0.8rem;color:var(--muted)">Puanlar tarayıcınızda otomatik saklanır.</span>
+        <button type="button" class="btn btn-soft" onclick="resetOkey()">Skorları Sıfırla</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap foot">
+    <div style="display:flex;align-items:center;gap:12px">
+      <img src="logo.png" alt="Logo" style="width:40px;height:40px;border-radius:50%;object-fit:cover;border:1px solid var(--gold)" onerror="this.style.display='none'">
+      <div>
+        <strong style="color:var(--ink)">Pera Teras Kafe &amp; Okey Salonu</strong>
+        <div style="font-size:0.78rem">Konya • Tüm Hakları Saklıdır</div>
+      </div>
+    </div>
+    <div>Wi-Fi Şifresi: <strong>noamoa</strong></div>
+  </div>
+</footer>
+
+<!-- MASA SIPARIS CEKMECESI -->
+<div class="drawer-bg" id="drawerBg" onclick="toggleCart()"></div>
+<aside class="drawer" id="drawer">
+  <div>
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.6rem">Masa Sipariş Listesi</h3>
+      <button type="button" class="btn btn-soft" onclick="toggleCart()">Kapat</button>
+    </div>
+    <p style="font-size:0.82rem;color:var(--muted);margin-top:4px">Seçtiğiniz ürünleri garsona gösterebilir veya kopyalayabilirsiniz.</p>
   </div>
 
-  <header>
-    <div class="container nav">
-      <a href="#" class="brand">
-        <img src="logo.png" alt="Pera Teras Logo" class="brand-logo" onerror="this.style.display='none'" />
-        <div>
-          <div class="brand-title">PERA TERAS</div>
-          <div class="brand-sub">Kafe & Okey Salonu • Konya</div>
-        </div>
-      </a>
+  <div class="cart-list" id="cartList"></div>
 
-      <nav class="nav-links">
-        <a href="#kampanyalar">Kampanyalı Menüler</a>
-        <a href="#menu">Menü & Fiyatlar</a>
-        <a href="#konum">Konum & Wi-Fi</a>
-      </nav>
+  <div>
+    <select id="tableNo" class="table-sel">
+      <option value="Teras Masa 1">Teras Masa 1</option>
+      <option value="Teras Masa 2">Teras Masa 2</option>
+      <option value="Teras Masa 3">Teras Masa 3</option>
+      <option value="Teras Masa 4">Teras Masa 4</option>
+      <option value="Okey Salonu Masa 1">Okey Salonu Masa 1</option>
+      <option value="Okey Salonu Masa 2">Okey Salonu Masa 2</option>
+      <option value="Okey Salonu Masa 3">Okey Salonu Masa 3</option>
+      <option value="Okey Salonu Masa 4">Okey Salonu Masa 4</option>
+    </select>
+    <button type="button" class="btn btn-gold" style="width:100%" onclick="copyOrder()">Sipariş Listesini Kopyala</button>
+  </div>
+</aside>
 
-      <a href="#menu" class="btn btn-gold">QR Menü</a>
-    </div>
-  </header>
+<div class="toast" id="toast">Bildirim</div>
 
-  <section class="hero">
-    <div class="container hero-grid">
-      <div>
-        <span class="pill">✦ KONYA • PERA TERAS</span>
-        <h1>Teras Keyfi, <span>Özel Kahveler</span> ve Seçkin Lezzetler</h1>
-        <p>
-          Konya'da taze kahveler, el yapımı tatlılar, sıcak kruvasanlar ve ferahlatıcı içeceklerle keyifli vakit geçirebilirsiniz.
-        </p>
+<script>
+/* 1. ACILIS ANIMASYONU KONTROLU */
+function closePreloader(){
+  var p = document.getElementById("preloader");
+  if(p) p.classList.add("hide");
+}
+window.addEventListener("DOMContentLoaded", function(){ setTimeout(closePreloader, 750); });
+window.addEventListener("load", function(){ setTimeout(closePreloader, 750); });
+setTimeout(closePreloader, 1400);
 
-        <div class="hero-cta">
-          <a href="#menu" class="btn btn-gold">Tüm Menüyü Keşfet</a>
-          <a href="#kampanyalar" class="btn btn-glass">Günün Kampanyaları</a>
-        </div>
+/* 2. SCROLL REVEAL */
+if("IntersectionObserver" in window){
+  var revs = document.querySelectorAll(".reveal");
+  revs.forEach(function(el){ el.classList.add("anim-init"); });
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add("in-view"); }
+    });
+  }, {threshold:0.1});
+  revs.forEach(function(el){ io.observe(el); });
+}
 
-        <div class="quick-bar" id="konum">
-          <div class="quick-card">
-            <div>
-              <div class="quick-label">Ücretsiz Wi-Fi</div>
-              <div class="quick-val">noamoa</div>
-            </div>
-            <button class="btn btn-glass" type="button" onclick="copyWifi()">Kopyala</button>
-          </div>
+/* 3. MENU VERILERI (7 KATEGORI) */
+var CATEGORIES = [
+  "Tümü",
+  "Kahveler",
+  "Sıcak İçecekler",
+  "Soğuk İçecekler",
+  "Aperatifler",
+  "Mokteyller",
+  "Kruvasanlar",
+  "Tatlılar"
+];
 
-          <div class="quick-card">
-            <div>
-              <div class="quick-label">Lokasyon</div>
-              <div class="quick-val">Konya</div>
-            </div>
-            <a href="https://maps.google.com/?q=Pera+Teras+Okey+Salonu+Konya" target="_blank" rel="noopener" class="btn btn-glass">Yol Tarifi</a>
-          </div>
-        </div>
-      </div>
+var MENU_ITEMS = [
+  {c:"Kahveler",n:"Geleneksel Türk Kahvesi",p:0,pt:"Güncel Fiyat",d:"Bakır cezvede ağır ağır pişirilen bol köpüklü Türk kahvesi.",i:"https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=500&q=80"},
+  {c:"Kahveler",n:"Klasik Caffè Latte",p:0,pt:"Güncel Fiyat",d:"Taze çekilmiş espresso ve kadifemsi sıcak süt kreması.",i:"https://images.unsplash.com/photo-1570968915860-54d5c301fa9f?auto=format&fit=crop&w=500&q=80"},
+  {c:"Kahveler",n:"Karamel Macchiato",p:0,pt:"Güncel Fiyat",d:"Vanilya notaları ve karamel sos ile hazırlanan sütlü espresso.",i:"https://images.unsplash.com/photo-1485808191679-563ae7720693?auto=format&fit=crop&w=500&q=80"},
+  {c:"Kahveler",n:"Sıcak Americano",p:0,pt:"Güncel Fiyat",d:"Yoğun gövdeli çift shot espresso ve sıcak su dengesi.",i:"https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=500&q=80"},
 
-      <div class="hero-showcase">
-        <img src="logo.png" alt="Pera Teras Okey Salonu" class="showcase-logo" onerror="this.style.display='none'" />
-        <h2 class="showcase-title">Pera Teras Kafe & Okey</h2>
-        <p class="showcase-meta">Sıcak Atmosfer • Hızlı Servis • Dijital Menü</p>
-        <div class="wifi-pill" onclick="copyWifi()">
-          <span>Wi-Fi Şifresi: <strong style="color: var(--gold-light);">noamoa</strong></span>
-          <span style="font-size: 0.78rem; color: var(--muted);">(Tıkla & Kopyala)</span>
-        </div>
-      </div>
-    </div>
-  </section>
+  {c:"Sıcak İçecekler",n:"Demleme Karadeniz Çayı",p:0,pt:"Güncel Fiyat",d:"İnce belli bardakta taze demlenmiş klasik çay.",i:"https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=500&q=80"},
+  {c:"Sıcak İçecekler",n:"Tarçınlı Sahlep",p:0,pt:"Güncel Fiyat",d:"Kıvamlı sütlü sahlep üzerinde taze çekilmiş tarçın.",i:"https://images.unsplash.com/photo-1542990253-0d0f5be5f0ed?auto=format&fit=crop&w=500&q=80"},
+  {c:"Sıcak İçecekler",n:"Belçika Sıcak Çikolata",p:0,pt:"Güncel Fiyat",d:"Yoğun kakao aromalı, kremsi sıcak çikolata.",i:"https://images.unsplash.com/photo-1517578239113-b03992dcdd25?auto=format&fit=crop&w=500&q=80"},
+  {c:"Sıcak İçecekler",n:"Ihlamur & Nane Limon",p:0,pt:"Güncel Fiyat",d:"Teras keyfine eşlik eden doğal bitki çayı seçkisi.",i:"https://images.unsplash.com/photo-1597481499750-3e6b22637e12?auto=format&fit=crop&w=500&q=80"},
 
-  <section id="kampanyalar">
-    <div class="container">
-      <div class="sec-head">
-        <h2 class="sec-title">Kampanyalı Menüler</h2>
-        <p class="sec-sub">Öne çıkan imza tatlılarımız</p>
-      </div>
+  {c:"Soğuk İçecekler",n:"Soğuk Latte (Ice Latte)",p:0,pt:"Güncel Fiyat",d:"Buz küpleri ve soğuk süt ile ferahlatıcı kahve.",i:"https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?auto=format&fit=crop&w=500&q=80"},
+  {c:"Soğuk İçecekler",n:"Naneli Ev Limonatası",p:0,pt:"Güncel Fiyat",d:"Taze sıkılmış limon ve bahçe nanesi yapraklarıyla.",i:"https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=500&q=80"},
+  {c:"Soğuk İçecekler",n:"Çilekli Milkshake",p:0,pt:"Güncel Fiyat",d:"Taze çilek aromalı, soğuk ve kremalı milkshake.",i:"https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=500&q=80"},
+  {c:"Soğuk İçecekler",n:"Şeftalili Buzlu Çay",p:0,pt:"Güncel Fiyat",d:"Serinletici şeftali aromalı soğuk çay.",i:"https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=500&q=80"},
 
-      <div class="campaign-grid">
-        <div class="camp-card">
-          <img src="https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&w=600&q=80" alt="Limonlu Cheesecake" class="camp-img" />
-          <div class="camp-body">
-            <div>
-              <span class="badge-camp">KAMPANYA</span>
-              <h3 style="margin-top: 8px; font-size: 1.08rem;">LİMONLU CHEESCAKE</h3>
-              <p class="item-desc">Taze limon soslu, kremsi dokulu özel dilim.</p>
-            </div>
-            <div class="camp-price">250.00 ₺</div>
-          </div>
-        </div>
+  {c:"Aperatifler",n:"Pera Çıtır Sepet",p:0,pt:"Güncel Fiyat",d:"Baharatlı patates, çıtır nuggets ve özel dip soslar.",i:"https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=500&q=80"},
+  {c:"Aperatifler",n:"Çıtır Soğan Halkası",p:0,pt:"Güncel Fiyat",d:"Altın sarısı kızarmış soğan halkaları ve sos eşliğinde.",i:"https://images.unsplash.com/photo-1639024471283-03518883512d?auto=format&fit=crop&w=500&q=80"},
+  {c:"Aperatifler",n:"Özel Kuruyemiş Tabağı",p:0,pt:"Güncel Fiyat",d:"Okey masalarının vazgeçilmezi taze kavrulmuş kuruyemiş.",i:"https://images.unsplash.com/photo-1599599813761-800253a3e578?auto=format&fit=crop&w=500&q=80"},
 
-        <div class="camp-card">
-          <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=600&q=80" alt="Frambuazlı Cheesecake" class="camp-img" />
-          <div class="camp-body">
-            <div>
-              <span class="badge-camp">KAMPANYA</span>
-              <h3 style="margin-top: 8px; font-size: 1.08rem;">FRAMBUAZLI CHEESCAKE</h3>
-              <p class="item-desc">Yoğun frambuaz soslu imza cheesecake.</p>
-            </div>
-            <div class="camp-price">250.00 ₺</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  {c:"Mokteyller",n:"Tropikal Mango Mokteyl",p:0,pt:"Güncel Fiyat",d:"Mango püresi, taze limon ve ferah soda uyumu.",i:"https://images.unsplash.com/photo-1536935338788-846bb9981813?auto=format&fit=crop&w=500&q=80"},
+  {c:"Mokteyller",n:"Mavi Lagün Mokteyl",p:0,pt:"Güncel Fiyat",d:"Narenciye notalı, buzlu ve ferahlatıcı alkolsüz kokteyl.",i:"https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=500&q=80"},
+  {c:"Mokteyller",n:"Orman Meyveli Fizz",p:0,pt:"Güncel Fiyat",d:"Böğürtlen, ahududu ve nane yapraklarıyla özel karışım.",i:"https://images.unsplash.com/photo-1546171753-97d7676e4602?auto=format&fit=crop&w=500&q=80"},
 
-  <section id="menu">
-    <div class="container">
-      <div class="sec-head">
-        <h2 class="sec-title">Menü & Ürünler</h2>
-        <p class="sec-sub">Kategori seçin veya ürün adı arayın</p>
-      </div>
+  {c:"Kruvasanlar",n:"Tereyağlı Sade Kruvasan",p:0,pt:"Güncel Fiyat",d:"Katmanlı, dışı çıtır içi yumuşak taze fırın kruvasanı.",i:"https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=500&q=80"},
+  {c:"Kruvasanlar",n:"Belçika Çikolatalı Kruvasan",p:0,pt:"Güncel Fiyat",d:"Sıcak çikolata dolgulu, pudra şekeri dokunuşlu kruvasan.",i:"https://images.unsplash.com/photo-1530610476181-d83430b64dcd?auto=format&fit=crop&w=500&q=80"},
+  {c:"Kruvasanlar",n:"Çilekli & Kremalı Kruvasan",p:0,pt:"Güncel Fiyat",d:"Pastacı kreması ve taze çilek dilimleriyle servis edilir.",i:"https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=500&q=80"},
 
-      <div class="controls">
-        <div class="search-box">
-          <input type="text" id="searchInput" placeholder="Ürün ara (örn: Cheesecake, Latte, Kruvasan)..." oninput="renderMenu()" />
-        </div>
-        <div class="tabs" id="tabs"></div>
-      </div>
+  {c:"Tatlılar",n:"Limonlu Cheesecake",p:250,pt:"250.00 ₺",d:"Kampanyalı tatlı • Ferahlatıcı limon soslu dilim.",i:"https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&w=500&q=80"},
+  {c:"Tatlılar",n:"Frambuazlı Cheesecake",p:250,pt:"250.00 ₺",d:"Kampanyalı tatlı • Yoğun frambuaz soslu dilim.",i:"https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=500&q=80"},
+  {c:"Tatlılar",n:"San Sebastian Cheesecake",p:0,pt:"Güncel Fiyat",d:"Karamelize üst yüzeyi ve akışkan iç dokusuyla imza tatlı.",i:"https://images.unsplash.com/photo-1524351199678-941a58a3df50?auto=format&fit=crop&w=500&q=80"}
+];
 
-      <div class="menu-grid" id="menuGrid"></div>
-    </div>
-  </section>
+var activeCat = "Tümü";
 
-  <footer>
-    <div class="container footer-flex">
-      <div style="display: flex; align-items: center; gap: 12px;">
-        <img src="logo.png" alt="Logo" style="width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 1px solid var(--gold);" onerror="this.style.display='none'" />
-        <div>
-          <strong style="color: var(--gold-light);">Pera Teras Kafe & Okey Salonu</strong>
-          <div style="font-size: 0.8rem; color: var(--muted);">Konya • Tüm Hakları Saklıdır</div>
-        </div>
-      </div>
-      <div style="font-size: 0.88rem; color: var(--muted);">
-        Wi-Fi Şifresi: <strong style="color: var(--gold-light);">noamoa</strong>
-      </div>
-    </div>
-  </footer>
+function renderTabs(){
+  var html = "";
+  for(var i=0;i<CATEGORIES.length;i++){
+    var c = CATEGORIES[i];
+    html += '<button type="button" class="tab'+(c===activeCat?' active':'')+'" onclick="selectCat('+i+')">'+c+'</button>';
+  }
+  document.getElementById("tabs").innerHTML = html;
+}
 
-  <div class="toast" id="toast">Wi-Fi şifresi kopyalandı: noamoa</div>
+function selectCat(i){
+  activeCat = CATEGORIES[i];
+  renderTabs();
+  renderMenu();
+}
 
-  <script>
-    function hideLoader() {
-      const loader = document.getElementById("loader");
-      if (loader) loader.classList.add("done");
+function renderMenu(){
+  var q = (document.getElementById("searchInput").value || "").toLowerCase().trim();
+  var html = "";
+  for(var i=0;i<MENU_ITEMS.length;i++){
+    var it = MENU_ITEMS[i];
+    var okC = (activeCat === "Tümü") || (it.c === activeCat);
+    var okQ = (it.n.toLowerCase().indexOf(q)!==-1) || (it.d.toLowerCase().indexOf(q)!==-1) || (it.c.toLowerCase().indexOf(q)!==-1);
+    if(okC && okQ){
+      html += '<article class="m-card">'
+        + '<div class="m-img"><img src="'+it.i+'" alt="'+it.n+'" loading="lazy"><span class="m-tag">'+it.c+'</span></div>'
+        + '<div class="m-body"><div><div class="m-top"><h3 class="m-name">'+it.n+'</h3><span class="m-price">'+it.pt+'</span></div>'
+        + '<p class="m-desc">'+it.d+'</p></div>'
+        + '<div class="m-actions"><span style="font-size:0.75rem;color:var(--muted)">Pera Teras</span>'
+        + '<button type="button" class="add-btn" onclick="addToCart(\''+it.n.replace(/'/g,"\\'")+'\','+it.p+')">+ Listeye Ekle</button></div>'
+        + '</div></article>';
     }
+  }
+  document.getElementById("menuGrid").innerHTML = html || "<p style='color:var(--muted)'>Aramanıza uygun ürün bulunamadı.</p>";
+}
 
-    window.addEventListener("DOMContentLoaded", () => setTimeout(hideLoader, 250));
-    window.addEventListener("load", () => setTimeout(hideLoader, 250));
-    setTimeout(hideLoader, 900);
+/* 4. BARISTA ATOLYESI */
+var BASES = ["Latte","Americano","Flat White","Ice Latte"];
+var MILKS = ["Normal Süt","Laktozsuz Süt","Yulaf Sütü","Badem Sütü"];
+var SYRUPS = ["Sade","Karamel","Vanilya","Fındık","Beyaz Çikolata"];
+var selBase = BASES[0], selMilk = MILKS[0], selSyrup = SYRUPS[0];
 
-    const CATEGORIES = [
-      "Tümü",
-      "KAHVELER",
-      "Sıcak İçecekler",
-      "Soğuk İçecekler",
-      "Aperatifler",
-      "Mokteyl",
-      "KRUVASAN",
-      "TATLILAR"
-    ];
+function renderCraft(){
+  document.getElementById("baseChips").innerHTML = BASES.map(function(b){
+    return '<button type="button" class="chip'+(b===selBase?' sel':'')+'" onclick="selBase=\''+b+'\';renderCraft()">'+b+'</button>';
+  }).join("");
+  document.getElementById("milkChips").innerHTML = MILKS.map(function(m){
+    return '<button type="button" class="chip'+(m===selMilk?' sel':'')+'" onclick="selMilk=\''+m+'\';renderCraft()">'+m+'</button>';
+  }).join("");
+  document.getElementById("syrupChips").innerHTML = SYRUPS.map(function(s){
+    return '<button type="button" class="chip'+(s===selSyrup?' sel':'')+'" onclick="selSyrup=\''+s+'\';renderCraft()">'+s+'</button>';
+  }).join("");
+  document.getElementById("customTitle").textContent = selBase + " • " + selMilk + " • " + selSyrup;
+}
 
-    const MENU_ITEMS = [
-      {
-        category: "TATLILAR",
-        name: "Limonlu Cheesecake",
-        price: "250.00 ₺",
-        desc: "Ferahlatıcı limon sosuyla servis edilen günlük cheesecake.",
-        img: "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&w=600&q=80"
-      },
-      {
-        category: "TATLILAR",
-        name: "Frambuazlı Cheesecake",
-        price: "250.00 ₺",
-        desc: "Taze frambuaz soslu, yumuşak dokulu cheesecake.",
-        img: "https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=600&q=80"
-      },
-      {
-        category: "KAHVELER",
-        name: "Türk Kahvesi",
-        price: "—",
-        desc: "Orta, sade veya şekerli seçenekleriyle bol köpüklü Türk kahvesi.",
-        img: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=600&q=80"
-      },
-      {
-        category: "KAHVELER",
-        name: "Caffè Latte",
-        price: "—",
-        desc: "Taze espresso ve kadifemsi süt kreması uyumu.",
-        img: "https://images.unsplash.com/photo-1570968915860-54d5c301fa9f?auto=format&fit=crop&w=600&q=80"
-      },
-      {
-        category: "Sıcak İçecekler",
-        name: "Demleme Çay",
-        price: "—",
-        desc: "İnce belli bardakta taze demlenmiş Karadeniz çayı.",
-        img: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=600&q=80"
-      },
-      {
-        category: "Soğuk İçecekler",
-        name: "Ice Americano",
-        price: "—",
-        desc: "Buz küpleri üzerine çift shot taze espresso.",
-        img: "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?auto=format&fit=crop&w=600&q=80"
-      },
-      {
-        category: "Aperatifler",
-        name: "Çıtır Sepet",
-        price: "—",
-        desc: "Patates kızartması, soğan halkası ve özel soslar eşliğinde.",
-        img: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=600&q=80"
-      },
-      {
-        category: "Mokteyl",
-        name: "Orman Meyveli Mokteyl",
-        price: "—",
-        desc: "Alkolsüz, taze nane ve orman meyveleriyle hazırlanan özel içecek.",
-        img: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=600&q=80"
-      },
-      {
-        category: "KRUVASAN",
-        name: "Çikolatalı Kruvasan",
-        price: "—",
-        desc: "Sıcak fırından çıkan tereyağlı, Belçika çikolatalı kruvasan.",
-        img: "https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=600&q=80"
-      }
-    ];
+function addCustomCoffee(){
+  addToCart("Özel " + selBase + " (" + selMilk + ", " + selSyrup + ")", 0);
+}
 
-    let activeCategory = "Tümü";
-    const tabsContainer = document.getElementById("tabs");
-    const menuGrid = document.getElementById("menuGrid");
+/* 5. OKEY YAZBOZ */
+var players = [
+  {name:"1. Oyuncu",score:0},
+  {name:"2. Oyuncu",score:0},
+  {name:"3. Oyuncu",score:0},
+  {name:"4. Oyuncu",score:0}
+];
+try{
+  var saved = JSON.parse(localStorage.getItem("pera_okey"));
+  if(saved && saved.length === 4) players = saved;
+}catch(e){}
 
-    function renderTabs() {
-      tabsContainer.innerHTML = CATEGORIES.map(cat => `
-        <button
-          type="button"
-          class="tab ${cat === activeCategory ? "active" : ""}"
-          onclick="setCategory('${cat.replace(/'/g, "\\'")}')"
-        >${cat}</button>
-      `).join("");
-    }
+function renderOkey(){
+  var html = "";
+  for(var i=0;i<players.length;i++){
+    html += '<div class="player-box">'
+      + '<input type="text" value="'+players[i].name+'" onchange="players['+i+'].name=this.value;saveOkey()">'
+      + '<div class="score-row"><span class="score-val">'+players[i].score+'</span>'
+      + '<div><button type="button" class="s-btn" onclick="chgScore('+i+',-1)">-</button> '
+      + '<button type="button" class="s-btn" onclick="chgScore('+i+',1)">+</button> '
+      + '<button type="button" class="s-btn" onclick="chgScore('+i+',2)">+2</button></div></div></div>';
+  }
+  document.getElementById("okeyPlayers").innerHTML = html;
+}
+function chgScore(i,d){ players[i].score += d; saveOkey(); renderOkey(); }
+function saveOkey(){ try{ localStorage.setItem("pera_okey", JSON.stringify(players)); }catch(e){} }
+function resetOkey(){
+  for(var i=0;i<players.length;i++) players[i].score = 0;
+  saveOkey(); renderOkey();
+  showToast("Okey skorları sıfırlandı.");
+}
 
-    function setCategory(cat) {
-      activeCategory = cat;
-      renderTabs();
-      renderMenu();
-    }
+/* 6. MASA SIPARIS LISTESI */
+var cart = [];
+function addToCart(name, price){
+  var found = false;
+  for(var i=0;i<cart.length;i++){
+    if(cart[i].name === name){ cart[i].qty++; found = true; break; }
+  }
+  if(!found) cart.push({name:name, price:price, qty:1});
+  updateCartUI();
+  showToast(name + " masa listesine eklendi.");
+}
+function removeCart(idx){
+  cart.splice(idx,1);
+  updateCartUI();
+}
+function updateCartUI(){
+  var totalQty = 0;
+  var html = "";
+  for(var i=0;i<cart.length;i++){
+    totalQty += cart[i].qty;
+    html += '<div class="cart-item"><div><strong>'+cart[i].name+'</strong><div style="font-size:0.76rem;color:var(--muted)">Adet: '+cart[i].qty+'</div></div>'
+      + '<button type="button" class="s-btn" onclick="removeCart('+i+')">×</button></div>';
+  }
+  document.getElementById("cartCount").textContent = totalQty;
+  document.getElementById("cartList").innerHTML = html || "<p style='color:var(--muted);font-size:0.86rem'>Henüz ürün eklenmedi.</p>";
+}
+function toggleCart(){
+  document.getElementById("drawer").classList.toggle("open");
+  document.getElementById("drawerBg").classList.toggle("open");
+}
+function copyOrder(){
+  if(cart.length === 0){ showToast("Önce listeden ürün ekleyin."); return; }
+  var masa = document.getElementById("tableNo").value;
+  var lines = ["Pera Teras Sipariş (" + masa + "):"];
+  for(var i=0;i<cart.length;i++){ lines.push("- " + cart[i].qty + "x " + cart[i].name); }
+  copyText(lines.join("\n"), "Masa sipariş listesi kopyalandı!");
+}
 
-    function renderMenu() {
-      const query = document.getElementById("searchInput").value.trim().toLowerCase();
-      const filtered = MENU_ITEMS.filter(item => {
-        const matchCat = activeCategory === "Tümü" || item.category === activeCategory;
-        const matchText = item.name.toLowerCase().includes(query) || item.desc.toLowerCase().includes(query);
-        return matchCat && matchText;
-      });
+/* 7. YARDIMCILAR */
+function copyText(txt, msg){
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).catch(function(){});
+  }
+  showToast(msg);
+}
+function showToast(msg){
+  var t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  setTimeout(function(){ t.classList.remove("show"); }, 2300);
+}
 
-      if (filtered.length === 0) {
-        menuGrid.innerHTML = `<p style="color: var(--muted);">Aradığınız kriterde ürün bulunamadı.</p>`;
-        return;
-      }
-
-      menuGrid.innerHTML = filtered.map(item => `
-        <article class="item-card">
-          <div class="item-img-wrap">
-            <img src="${item.img}" alt="${item.name}" loading="lazy" />
-            <span class="item-cat-tag">${item.category}</span>
-          </div>
-          <div class="item-content">
-            <div>
-              <div class="item-header">
-                <h3 class="item-name">${item.name}</h3>
-                <span class="item-price">${item.price}</span>
-              </div>
-              <p class="item-desc">${item.desc}</p>
-            </div>
-          </div>
-        </article>
-      `).join("");
-    }
-
-    function copyWifi() {
-      navigator.clipboard?.writeText("noamoa").catch(() => {});
-      const toast = document.getElementById("toast");
-      toast.classList.add("show");
-      setTimeout(() => toast.classList.remove("show"), 2200);
-    }
-
-    renderTabs();
-    renderMenu();
-  </script>
+renderTabs();
+renderMenu();
+renderCraft();
+renderOkey();
+updateCartUI();
+</script>
 </body>
 </html>
